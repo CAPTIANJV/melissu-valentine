@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>For Melissu ❤️</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+* {
+    box-sizing: border-box;
+    font-family: 'Arial', sans-serif;
+}
+
+body {
+    margin: 0;
+    height: 100vh;
+    background: linear-gradient(-45deg, #ff9aa2, #ffb7b2, #ffd1dc, #ff9aa2);
+    background-size: 400% 400%;
+    animation: bgMove 18s ease infinite;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+
+/* Background animation */
+@keyframes bgMove {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+/* Card */
+.card {
+    background: #fff;
+    padding: 30px 26px;
+    border-radius: 24px;
+    text-align: center;
+    width: 90%;
+    max-width: 360px;
+    box-shadow: 0 25px 50px rgba(0,0,0,0.25);
+    z-index: 2;
+    animation: cardGlow 3.5s ease-in-out infinite;
+}
+
+@keyframes cardGlow {
+    0%,100% { box-shadow: 0 25px 50px rgba(0,0,0,0.25); }
+    50% { box-shadow: 0 25px 60px rgba(255,45,111,0.35); }
+}
+
+h1, h2 {
+    color: #ff2d6f;
+}
+
+p {
+    color: #444;
+    line-height: 1.6;
+}
+
+#countdown {
+    margin: 16px 0;
+    font-weight: bold;
+    color: #ff2d6f;
+}
+
+/* Buttons */
+.buttons {
+    position: relative;
+    height: 90px;
+}
+
+button {
+    border: none;
+    padding: 12px 28px;
+    font-size: 17px;
+    border-radius: 30px;
+    cursor: pointer;
+    position: absolute;
+}
+
+#yesBtn {
+    background: #ff2d6f;
+    color: white;
+    left: 50%;
+    transform: translateX(-50%);
+    bottom: 0;
+    animation: heartbeat 1.6s infinite;
+}
+
+@keyframes heartbeat {
+    0%,100% { transform: translateX(-50%) scale(1); }
+    50% { transform: translateX(-50%) scale(1.08); }
+}
+
+#noBtn {
+    background: #e0e0e0;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+/* Fade-in */
+.fade-in {
+    animation: fadeIn 1.6s ease forwards;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Floating hearts */
+.floating-heart {
+    position: fixed;
+    bottom: -20px;
+    font-size: 18px;
+    animation: floatUp linear forwards;
+    opacity: 0.8;
+    pointer-events: none;
+}
+
+@keyframes floatUp {
+    from { transform: translateY(0) scale(1); opacity: 1; }
+    to { transform: translateY(-110vh) scale(1.6); opacity: 0; }
+}
+
+/* Firework hearts */
+.firework {
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    font-size: 22px;
+    animation: explode 1.2s ease-out forwards;
+    pointer-events: none;
+}
+
+@keyframes explode {
+    from { transform: translate(0,0) scale(1); opacity: 1; }
+    to { transform: translate(var(--x), var(--y)) scale(1.8); opacity: 0; }
+}
+
+/* Sparkles */
+.sparkle {
+    position: fixed;
+    font-size: 14px;
+    animation: sparkle 1.5s ease-out forwards;
+    pointer-events: none;
+}
+
+@keyframes sparkle {
+    from { opacity: 1; transform: scale(1); }
+    to { opacity: 0; transform: scale(2); }
+}
+
+/* 🐼 Panda peek animation */
+.panda {
+    position: fixed;
+    bottom: 30px;
+    font-size: 48px;
+    z-index: 1;
+    opacity: 0;
+    pointer-events: none;
+}
+
+.panda-left {
+    left: -60px;
+    animation: pandaLeft 12s infinite;
+}
+
+.panda-right {
+    right: -60px;
+    animation: pandaRight 12s infinite;
+}
+
+@keyframes pandaLeft {
+    0% { transform: translateX(0); opacity: 0; }
+    10% { transform: translateX(90px); opacity: 1; }
+    25% { transform: translateX(90px); }
+    40% { transform: translateX(0); opacity: 0; }
+    100% { opacity: 0; }
+}
+
+@keyframes pandaRight {
+    0% { transform: translateX(0); opacity: 0; }
+    10% { transform: translateX(-90px); opacity: 1; }
+    25% { transform: translateX(-90px); }
+    40% { transform: translateX(0); opacity: 0; }
+    100% { opacity: 0; }
+}
+</style>
+</head>
+
+<body>
+
+<div class="card" id="card">
+    <h1>Melissu ❤️</h1>
+    <h2>Will you be my Valentine? 💘</h2>
+
+    <p>
+        From the day you walked into my life, everything started feeling warmer,
+        happier, and more meaningful ✨
+    </p>
+
+    <div id="countdown"></div>
+
+    <div class="buttons" id="buttons">
+        <button id="noBtn">NO 🙈</button>
+        <button id="yesBtn">YES 💍</button>
+    </div>
+</div>
+
+<!-- 🐼 Pandas -->
+<div class="panda panda-left">🐼</div>
+<div class="panda panda-right">🐼</div>
+
+<audio id="music" loop>
+    <source src="https://cdn.pixabay.com/audio/2022/03/15/audio_5f6e3fbe8b.mp3" type="audio/mpeg">
+</audio>
+
+<script>
+const yesBtn = document.getElementById("yesBtn");
+const noBtn = document.getElementById("noBtn");
+const card = document.getElementById("card");
+const buttons = document.getElementById("buttons");
+const music = document.getElementById("music");
+
+/* Music fade-in */
+document.body.addEventListener("click", () => {
+    music.volume = 0;
+    music.play().catch(()=>{});
+    let v = 0;
+    const fade = setInterval(() => {
+        v += 0.05;
+        music.volume = Math.min(v, 0.6);
+        if (v >= 0.6) clearInterval(fade);
+    }, 200);
+}, { once: true });
+
+/* NO button escape */
+function moveNo() {
+    const x = Math.random() * 200 - 100;
+    const y = Math.random() * 200 - 100;
+    noBtn.style.transform = `translate(${x}px, ${y}px)`;
+}
+noBtn.addEventListener("mouseover", moveNo);
+noBtn.addEventListener("touchstart", moveNo);
+
+/* YES click */
+yesBtn.addEventListener("click", () => {
+    buttons.remove();
+
+    const msg = document.createElement("div");
+    msg.className = "fade-in";
+    msg.style.marginTop = "20px";
+    msg.style.fontSize = "20px";
+    msg.style.color = "#ff2d6f";
+    msg.style.fontWeight = "bold";
+    msg.innerHTML = `That was your idea, Melissu 😌❤️<br>Forever starts with this YES 💍`;
+    card.appendChild(msg);
+
+    for (let i = 0; i < 30; i++) {
+        const fw = document.createElement("div");
+        fw.className = "firework";
+        fw.innerHTML = "❤️";
+        const angle = Math.random() * 2 * Math.PI;
+        const dist = Math.random() * 120 + 40;
+        fw.style.setProperty("--x", `${Math.cos(angle) * dist}px`);
+        fw.style.setProperty("--y", `${Math.sin(angle) * dist}px`);
+        document.body.appendChild(fw);
+        setTimeout(() => fw.remove(), 1200);
+    }
+});
+
+/* Floating hearts */
+setInterval(() => {
+    const h = document.createElement("div");
+    h.className = "floating-heart";
+    h.innerHTML = "❤️";
+    h.style.left = Math.random() * 100 + "vw";
+    h.style.animationDuration = (Math.random() * 3 + 4) + "s";
+    document.body.appendChild(h);
+    setTimeout(() => h.remove(), 7000);
+}, 500);
+
+/* Sparkles */
+setInterval(() => {
+    const s = document.createElement("div");
+    s.className = "sparkle";
+    s.innerHTML = "✨";
+    s.style.left = Math.random() * 100 + "vw";
+    s.style.top = Math.random() * 100 + "vh";
+    document.body.appendChild(s);
+    setTimeout(() => s.remove(), 1500);
+}, 1200);
+
+/* Countdown */
+function updateCountdown() {
+    const v = new Date(new Date().getFullYear(), 1, 14);
+    const n = new Date();
+    const d = v - n;
+    if (d <= 0) {
+        document.getElementById("countdown").innerHTML = "💖 Happy Valentine’s Day 💖";
+        return;
+    }
+    const dd = Math.floor(d / 86400000);
+    const hh = Math.floor(d / 3600000) % 24;
+    const mm = Math.floor(d / 60000) % 60;
+    const ss = Math.floor(d / 1000) % 60;
+    document.getElementById("countdown").innerHTML =
+        `⏳ ${dd}d ${hh}h ${mm}m ${ss}s to Valentine’s Day`;
+}
+setInterval(updateCountdown, 1000);
+updateCountdown();
+</script>
+
+</body>
+</html>
